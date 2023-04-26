@@ -69,3 +69,42 @@ sequenceDiagram
     View-->>Controller: boolean
     deactivate View
 ```
+---
+
+## Evento en el View
+
+Cuando ocurre un evento en la vista, el `controller` se tiene que enterar.
+Tenemos que tener en cuenta que en el MVC estricto, la vista no se comunica con el modelo.
+
+En el listener del botón llamamos al `controller`
+
+
+```mermaid
+sequenceDiagram
+    participant Model
+    participant Controller
+    participant View
+    View->>Controller: el usuario quiere crear un coche
+    activate Controller
+    Controller->>Model: crearCoche(modelo, matricula)
+    activate Model
+    Model-->>Controller: Coche
+    deactivate Model
+    Controller->>View: displayMensaje(mensaje)
+    deactivate Controller
+```
+
+```mermaid
+sequenceDiagram
+    participant Model
+    participant Controller
+    participant View
+    View->>Controller: crearCoche(modelo, matricula)
+    activate Controller
+    Controller->>Model: crearCoche(modelo, matricula)
+    activate Model
+    Model-->>Controller: Coche
+    deactivate Model
+    Controller->>View: displayMensaje(mensaje)
+    deactivate Controller
+```

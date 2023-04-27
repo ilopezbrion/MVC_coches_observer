@@ -2,6 +2,9 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * Entorno gráfico - Interfaz de Usuario
+ */
 public class IU {
     private JButton crearCoche;
     public JPanel panel;
@@ -11,10 +14,12 @@ public class IU {
     static Controller miControlador;
 
     /**
-     * método que tendrá los listener de la interfaz gráfica
+     * Constructor del entorno gráfico
+     * tendrá los listener de la interfaz gráfica
      */
     public IU() {
         // instanciamos el controlador
+        // para avisar según la interacción del usuario
         miControlador = new Controller();
         // añadimos listener al boton
         crearCoche.addActionListener(new ActionListener() {

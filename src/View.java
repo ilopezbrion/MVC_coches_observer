@@ -1,5 +1,3 @@
-import javax.swing.*;
-
 public class View {
 
     public View(){
@@ -13,8 +11,11 @@ public class View {
      * @param v velocidad que ueremos mostrar
      * @return true si todo bien
      */
-    boolean muestraVelocidad(String matricula, Integer v){
-        System.out.println(matricula + ": " + v + "km/hr");
+    boolean mostrarVelocidad(String matricula, Integer v){
+        String mensaje = "Coche " + matricula + " velocidad: " + v + "km/h";
+        System.out.println(mensaje);
+        Dialog.mostrarMensaje(mensaje);
         return true;
     }
+
 }

@@ -1,3 +1,5 @@
+package com.castelao.mvc.app;
+
 public class Coche {
     String matricula;
     String modelo;

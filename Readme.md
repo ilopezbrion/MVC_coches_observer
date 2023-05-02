@@ -6,6 +6,10 @@ Aplicación que trabaja con objetos coches, modifica la velocidad y la muestra
 
 En esta rama está añadido los eventos en la IU
 
+En vez de usar `swing`, usaremos [`javafx`](https://openjfx.io/)
+
+De esta manera vemos lo independiente que queda la interfaz gráfica, pudiendo migrarla sin tener que modificar el resto de la App
+
 ---
 ### Diagrama de clases:
 

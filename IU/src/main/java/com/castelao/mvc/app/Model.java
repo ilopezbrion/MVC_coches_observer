@@ -1,3 +1,5 @@
+package com.castelao.mvc.app;
+
 import java.util.ArrayList;
 
 public class Model {
@@ -9,7 +11,7 @@ public class Model {
      * @param matricula identificador unico
      * @return el coche creado
      */
-    public Coche crearCoche(String modelo, String matricula){
+    public static Coche crearCoche(String modelo, String matricula){
         Coche aux = new Coche(modelo, matricula);
         parking.add(aux);
         return aux;

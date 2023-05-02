@@ -1,20 +1,23 @@
+package com.castelao.mvc.app;
+
+import java.io.IOException;
+
 public class Controller {
 
     // Modelo, maneja los datos
     static Model miModelo;
+    private static View miVista;
     // Vista, maneja la interacción con el usuarios
-    static View miVista;
 
     /**
      * Este es el punto inicial de nuestra aplicación
      * Las tareas iniciales estarían en este método
      * @param args no usadas
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
-        // instanciamos modelo y vista
-        miModelo = new Model();
-        miVista = new View();
+        // creamos la ventana
+        View.crearVentana();
 
         System.out.println("fin del main");
     }
@@ -24,9 +27,9 @@ public class Controller {
      * @param modelo del coche a crear
      * @param matricula identificador único del coche
      */
-    public void crearCoche(String modelo, String matricula){
-        Coche aux = miModelo.crearCoche(modelo, matricula);
-        if (aux != null) miVista.mostrarVelocidad(aux.matricula, aux.velocidad);
+    public static void crearCoche(String modelo, String matricula){
+        Coche aux = Model.crearCoche(modelo, matricula);
+        if (aux != null) View.mostrarVelocidad(aux.matricula, aux.velocidad);
         // TODO mandar mensaje de error si no fue posible crear el coche
     }
 }

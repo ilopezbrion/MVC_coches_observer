@@ -1,9 +1,9 @@
+/**
+ * Lógica de la aplicación
+ * No instanciamos la vista ni el modelo
+ * usamos todo static
+ */
 public class Controller {
-
-    // Modelo, maneja los datos
-    static Model miModelo;
-    // Vista, maneja la interacción con el usuarios
-    static View miVista;
 
     /**
      * Este es el punto inicial de nuestra aplicación
@@ -11,10 +11,8 @@ public class Controller {
      * @param args no usadas
      */
     public static void main(String[] args) {
-
-        // instanciamos modelo y vista
-        miModelo = new Model();
-        miVista = new View();
+        // creamos la interfaz gráfica
+        View.crearVentana();
 
         System.out.println("fin del main");
     }
@@ -25,8 +23,8 @@ public class Controller {
      * @param matricula identificador único del coche
      */
     public void crearCoche(String modelo, String matricula){
-        Coche aux = miModelo.crearCoche(modelo, matricula);
-        if (aux != null) miVista.mostrarVelocidad(aux.matricula, aux.velocidad);
+        Coche aux = Model.crearCoche(modelo, matricula);
+        if (aux != null) View.mostrarVelocidad(aux.matricula, aux.velocidad);
         // TODO mandar mensaje de error si no fue posible crear el coche
     }
 }

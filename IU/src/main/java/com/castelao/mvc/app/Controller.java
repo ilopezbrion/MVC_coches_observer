@@ -2,12 +2,11 @@ package com.castelao.mvc.app;
 
 import java.io.IOException;
 
+/**
+ * En esta versión, no vamos a instanciar la vista y el modelo
+ * Vamos a usar todos los métodos staic al igual que los artibutos
+ */
 public class Controller {
-
-    // Modelo, maneja los datos
-    static Model miModelo;
-    private static View miVista;
-    // Vista, maneja la interacción con el usuarios
 
     /**
      * Este es el punto inicial de nuestra aplicación

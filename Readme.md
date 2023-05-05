@@ -10,6 +10,10 @@ En vez de usar `swing`, usaremos [`javafx`](https://openjfx.io/)
 
 De esta manera vemos lo independiente que queda la interfaz gráfica, pudiendo migrarla sin tener que modificar el resto de la App
 
+Mantendremos una estructura básica de javafx
+
+El Model y el Controller no cambian
+
 ---
 ### Diagrama de clases:
 
@@ -23,7 +27,10 @@ classDiagram
       class Controller{
           +main()
       }
-      class View {+muestraVelocidad(String, Integer)}
+      class View {
+          +crearVentana()
+          +muestraVelocidad(String, Integer)
+          }
       class Model {
           ArrayList~Coche~: parking
           +crearCoche(String, String, String)
@@ -32,14 +39,20 @@ classDiagram
           +getVelocidad(String)
       }
       
-      class IU { mostrarVentana()}
+      class IU {
+          +main()
+          +start()
+      }
       
-      class Dialog { mostrarVelocidad() }
+      class IUController { 
+          +mostrarMensaje()
+          }
+      
     Controller "1" *-- "1" Model : association
     Controller "1" *-- "1" View : association
     Model "1" *-- "1..n" Coche : association
     View "1" *-- "1" IU : association
-    View "1" *-- "1" Dialog : association
+    View "1" *-- "1" IUController : association
 ```
 
 ---
@@ -71,28 +84,27 @@ sequenceDiagram
     View-->>usuario: tu coche se creó!
 ```
 
-Ahora la parte de la Arquitectura de la vista, son tres clases
+Ahora la parte de la Arquitectura de la vista, son las clases de JavaFX
 ```mermaid
 sequenceDiagram
     autonumber
     actor usuario
-    box gray Vista con JFrame
-        participant IU
-        participant Dialog
+    box gray Vista con JavaFX
+        participant IUController
         participant View
         end
         
     participant Controller
     participant Model
 
-    usuario->>IU: click! Crear coche
-    IU->>Controller: crearCoche()
+    usuario->>IUController: click! Crear coche
+    IUController->>Controller: crearCoche()
     activate Controller
-    Controller->>Model: crearCoche
+    Controller->>Model: crearCoche()
     activate Model
     Model-->>Controller: Coche
     deactivate Model
     Controller->>+View: mostrarVelocidad
     deactivate Controller
-    View-->>-Dialog: mostrarVelocidad()
+    View->>-IUController: mostrarMensaje()
 ```

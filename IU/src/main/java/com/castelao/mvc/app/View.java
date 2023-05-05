@@ -8,11 +8,18 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class View {
-
+    /**
+     * Controlador de la IU lo implementa javafx
+     */
     static IUController iuController;
+
+    /**
+     * Inicializamos la ventana
+     */
     static void crearVentana(){
+        // llamada a la app javafx
         IU.main();
-        // a partir de aqui no se ejecuta
+        // a partir de aqui no se ejecuta nada
     }
     /**
      * Muestra la velocidad
@@ -21,10 +28,14 @@ public class View {
      * @return true si todo bien
      */
     static boolean mostrarVelocidad(String matricula, Integer v){
-    IUController iuController = IU.getIUController();
+        // controlador de la IU javafx
+        IUController iuController = IU.getIUController();
+        // construimos el mensaje
         String mensaje = "Coche " + matricula + " velocidad: " + v + "km/h";
+        // debug por consola
         System.out.println(mensaje);
-        // TODO resolver mostrar
+        // enviamos el mensaje a la IU
+        // como javafx trabaja con su propio controlador, lo usamos
         iuController.mostrarMensaje(mensaje);
         return true;
     }

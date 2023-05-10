@@ -18,7 +18,9 @@ De esta manera se *dispara* en todos los observadores el método `update()`
 ```mermaid
 classDiagram
     class Observable {
-        }
+        setChanged()
+        notifyObserver(valor)
+    }
         class Coche {
         String: matricula
         String: modelo
@@ -124,3 +126,17 @@ sequenceDiagram
     View->>-View: sout
     deactivate View
 ```
+
+---
+## Pasos para la configuración
+
+1. Model
+   * Extender `Observable` en `Model`
+   * En el método en donde ocurra el cambio:
+     * setChenged()
+     * notifyObserver(valor)
+2. Crear una clase que sea el observador, que implementa la interface `Observer`
+    * definir el método `update()`
+3. Controller
+    * Instanciar el observer, definido en el punto anterior
+    * Añadir este observer al observable con `addObserver()`

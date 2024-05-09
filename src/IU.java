@@ -10,26 +10,21 @@ public class IU {
     public JPanel panel;
     private JTextField modelo;
     private JTextField matricula;
-    // necesitamos el controlador aqui para avisar de los eventos
-    static Controller miControlador;
 
     /**
      * Constructor del entorno gráfico
      * tendrá los listener de la interfaz gráfica
      */
     public IU() {
-        // instanciamos el controlador
-        // para avisar según la interacción del usuario
-        miControlador = new Controller();
         // añadimos listener al boton
         crearCoche.addActionListener(new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            System.out.println("creando coche");
-            // le decimos al controlador que cree un coche
-            miControlador.crearCoche(modelo.getText(), matricula.getText());
-        }
-    });
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("creando coche");
+                // le decimos al controlador que cree un coche
+                Controller.crearCoche(modelo.getText(), matricula.getText());
+            }
+        });
     }
 
     /**

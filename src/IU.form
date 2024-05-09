@@ -30,6 +30,7 @@
           </grid>
         </constraints>
         <properties>
+          <text value=""/>
           <toolTipText value="modelo"/>
         </properties>
       </component>
@@ -40,6 +41,7 @@
           </grid>
         </constraints>
         <properties>
+          <text value=""/>
           <toolTipText value="matricula"/>
         </properties>
       </component>

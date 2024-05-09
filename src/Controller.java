@@ -1,6 +1,6 @@
 
 
-public class Controller {
+public class Controller{
     static Model miModelo;
 
     public static void main(String[] args) {

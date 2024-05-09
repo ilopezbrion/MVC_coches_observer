@@ -7,6 +7,6 @@ public interface Observable {
     // elimina un observador
     void removeObserver(Observer observer);
     // notifica a los observadores
-    void notifyObservers();
+    void notifyObservers(Coche coche);
 }
 

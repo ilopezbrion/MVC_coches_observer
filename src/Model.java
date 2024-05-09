@@ -1,13 +1,31 @@
 import java.util.ArrayList;
-import java.util.Observable;
+import java.util.List;
 
 /**
- * Vamos a usar Observer en el Model
- * Por lo tanto vamos a poder observar los cambios en variables
- * Si bien esta clase está 'deprecate' nos servirá para entender el patrón
+ * Vamos a usar la interface Observable en el Model
  */
-public class Model extends Observable{
+public class Model implements Observable{
     static ArrayList<Coche> parking = new ArrayList<>();
+
+    // para los observadores
+    private final List<Observer> observers = new ArrayList<>();
+
+    @Override
+    public void addObserver(Observer observer) {
+        observers.add(observer);
+    }
+    @Override
+    public void removeObserver(Observer observer) {
+        observers.remove(observer);
+    }
+
+    @Override
+    public void notifyObservers(Coche coche) {
+        for (Observer observer : observers) {
+            observer.update(coche);
+        }
+    }
+
 
     /**
      * Crea un coche y lo mete en el parking
@@ -41,15 +59,13 @@ public class Model extends Observable{
      * Método que cambia la velocidad, por lo tanto
      * tendrá que avisar al controlador que ha cambiado
      *
-     * @param matricula
+     * @param matricula identificador del coche
      * @param v nueva velocidad
      */
     public void cambiarVelocidad(String matricula, Integer v) {
         // busca el coche
         getCoche(matricula).velocidad = v;
 
-        // anotamos el cambio
-        setChanged();
         // lo notificamos a todos los observadores
         notifyObservers(getCoche(matricula));
 
@@ -60,8 +76,8 @@ public class Model extends Observable{
 
     /**
      * Ddevuelve la velocidad segun la matricula
-     * @param matricula
-     * @return
+     * @param matricula identificador del coche
+     * @return velocidad del coche actual
      */
     public static Integer getVelocidad(String matricula) {
         return getCoche(matricula).velocidad;

@@ -1,6 +1,6 @@
-import java.util.Observable;
-import java.util.Observer;
-
+/**
+ * Otro observador que se suscribe a los cambios de velocidad de un coche
+ */
 public class ObserverOtro implements Observer {
     /**
      * This method is called whenever the observed object is changed. An
@@ -8,12 +8,11 @@ public class ObserverOtro implements Observer {
      * {@code notifyObservers} method to have all the object's
      * observers notified of the change.
      *
-     * @param o   the observable object.
      * @param arg an argument passed to the {@code notifyObservers}
      *            method.
      */
     @Override
-    public void update(Observable o, Object arg) {
+    public void update(Coche arg) {
         System.out.println("Yo tambien me enteré que la velocidad cambio en " + arg.toString());
     }
 }

@@ -10,6 +10,7 @@ import java.util.ArrayList;
  * El Model será el encargado de notificar a los observadores
  */
 public class Model implements Observable {
+    // array de coches
     static ArrayList<Coche> parking = new ArrayList<>();
 
     // para los observadores
@@ -24,6 +25,11 @@ public class Model implements Observable {
         observers.remove(observer);
     }
 
+    /**
+     * Notifica a los observadores
+     * Se ejecutara el método update() de cada observador
+     * @param coche
+     */
     @Override
     public void notifyObservers(Coche coche) {
         for (Observer observer : observers) {

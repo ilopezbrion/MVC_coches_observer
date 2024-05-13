@@ -6,7 +6,8 @@ import java.util.ArrayList;
 
 
 /**
- * Vamos a usar la interface Observable en el com.cod.mvc.model.Model
+ * Vamos a usar la interface Observable
+ * El Model será el encargado de notificar a los observadores
  */
 public class Model implements Observable {
     static ArrayList<Coche> parking = new ArrayList<>();
@@ -48,7 +49,7 @@ public class Model implements Observable {
      * @param matricula a buscar
      * @return chche o null si no existe
      */
-    public static Coche getCoche(String matricula){
+    public Coche getCoche(String matricula){
         Coche aux = null;
         // recorre el array buscando por matricula
         for (Coche e: parking) {
@@ -79,11 +80,11 @@ public class Model implements Observable {
     }
 
     /**
-     * Ddevuelve la velocidad segun la matricula
+     * Devuelve la velocidad según la matrícula
      * @param matricula identificador del coche
      * @return velocidad del coche actual
      */
-    public static Integer getVelocidad(String matricula) {
+    public Integer getVelocidad(String matricula) {
         return getCoche(matricula).velocidad;
     }
 }

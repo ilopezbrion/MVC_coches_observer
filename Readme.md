@@ -5,17 +5,20 @@ En esta rama utilizaremos el patrón Observer
 Los cambios de la velocidad que se hagan en el model
 serán observados por el Controller
 
-Para notificar a los observadores hacemos dos pasos
+Para notificar a los observadores:
 
 * Notificamos a los observadores `notifyObservers(valor)`
 
-De esta manera se *dispara* en todos los observadores el método `update()`
+* se *dispara* en todos los observadores el método `update()`
 
 ---
 ## Diagrama de clases:
 
 ```mermaid
 classDiagram
+    class Observer {
+        +update(Coche coche)
+    }
     class Observable {
         notifyObserver(Coche coche)
     }
@@ -26,7 +29,7 @@ classDiagram
     }
       class Controller {
             ObserverVelocidad: observoVelocidad
-            ObserverVelocidad: observoLimite
+            ObserverLimite: observoLimite
             +cambiarVelocidad(String, Integer)
             +getVelocidad(String)
       }
@@ -38,10 +41,14 @@ classDiagram
           +getVelocidad(String)
       }
       class ObserverVelocidad { +update(Coche coche) }
-      Controller "1" *-- "1..n" ObserverVelocidad: association
+      class ObserverLimite { +update(Coche coche) }
+      Controller "1" *-- "1" ObserverVelocidad: association
+      Controller "1" *-- "1" ObserverLimite: association
       Controller "1" *-- "1" Model : association
       Model "1" *-- "1..n" Coche : association
-      Observable <|-- Model
+      Observable <|.. Model : implements
+      Observer <|.. ObserverVelocidad : implements
+      Observer <|.. ObserverLimite : implements
       
 ```
 

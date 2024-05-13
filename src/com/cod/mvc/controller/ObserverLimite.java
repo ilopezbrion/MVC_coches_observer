@@ -16,7 +16,7 @@ public class ObserverLimite implements Observer {
     public void update(Coche coche) {
         // verificamos veloidad máxima
         if (coche.velocidad > LIMITE) {
-            System.out.println("[ObserverLimite] La velocidad de " + coche.matricula + " supera el límite de " + LIMITE);
+            System.out.println("[ObserverLimite] INFRACCION");
         }
     }
 }

@@ -2,7 +2,7 @@ package com.cod.mvc.model;
 
 public class Coche {
     public String matricula;
-    String modelo;
+    public String modelo;
     public int velocidad;
 
     public Coche(String modelo, String matricula) {

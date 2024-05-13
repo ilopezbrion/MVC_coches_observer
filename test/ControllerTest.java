@@ -51,7 +51,7 @@ public class ControllerTest {
         assertEquals(150, coche.velocidad);
 
         // Comprobar la salida
-        String salidaEsperada = "[ObserverVelocidad] Se ha cambiado la velocidad: 150\n" +
+        String salidaEsperada = "[ObserverVelocidad] Se ha cambiado la velocidad: 150km/hr\n" +
                 "[View] BX5555: 150km/hr\n" + "[ObserverLimite] INFRACCION\n";
         assertEquals(salidaEsperada, outContent.toString());
 

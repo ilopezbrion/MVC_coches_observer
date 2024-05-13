@@ -1,3 +1,8 @@
+package com.cod.mvc.model;
+
+import com.cod.mvc.controller.Observer;
+import com.cod.mvc.model.Coche;
+
 /**
  * Interfaz Observable
  */

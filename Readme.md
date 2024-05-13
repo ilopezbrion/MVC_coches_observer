@@ -3,7 +3,7 @@
 En esta rama utilizaremos el patrón Observer
 
 Los cambios de la velocidad que se hagan en el model
-serán observados por el Controller
+serán observados por el com.cod.mvc.controller.Controller
 
 Para notificar a los observadores hacemos dos pasos
 
@@ -26,10 +26,10 @@ classDiagram
         String: modelo
         Integer: velocidad
     }
-      class Controller{
+      class com.cod.mvc.controller.Controller{
           +main()
       }
-      class Model {
+      class com.cod.mvc.model.Model {
           ArrayList~Coche~: parking
           +crearCoche(String, String, String)
           +getCoche(String)
@@ -39,10 +39,10 @@ classDiagram
       class ObserverVelocidad {
           +update()
           }
-          Controller "1" *-- "1" ObserverVelocidad: association
-          Controller "1" *-- "1" Model : association
-    Model "1" *-- "1..n" Coche : association
-    Observable <|-- Model
+          com.cod.mvc.controller.Controller "1" *-- "1" ObserverVelocidad: association
+          com.cod.mvc.controller.Controller "1" *-- "1" com.cod.mvc.model.Model : association
+    com.cod.mvc.model.Model "1" *-- "1..n" Coche : association
+    Observable <|-- com.cod.mvc.model.Model
       
 ```
 
@@ -55,44 +55,44 @@ Que ocurre cuando se cambia la velocidad
 
 ```mermaid
 sequenceDiagram
-    participant View
-    participant Controller
+    participant com.cod.mvc.view.View
+    participant com.cod.mvc.controller.Controller
     participant ObserverVelocidad
-    participant Model
+    participant com.cod.mvc.model.Model
     
-    Controller->>Model: cambia la velociad, porfa
-    activate Model
-    Model->>ObserverVelocidad: Notificacion de cambio de velocidad
-    deactivate Model
+    com.cod.mvc.controller.Controller->>com.cod.mvc.model.Model: cambia la velociad, porfa
+    activate com.cod.mvc.model.Model
+    com.cod.mvc.model.Model->>ObserverVelocidad: Notificacion de cambio de velocidad
+    deactivate com.cod.mvc.model.Model
     activate ObserverVelocidad
-    ObserverVelocidad->>+View: Muestra la velocidad, porfa
+    ObserverVelocidad->>+com.cod.mvc.view.View: Muestra la velocidad, porfa
     deactivate ObserverVelocidad
-    activate View
-    View->>-View: Mostrando velocidad
-    deactivate View
+    activate com.cod.mvc.view.View
+    com.cod.mvc.view.View->>-com.cod.mvc.view.View: Mostrando velocidad
+    deactivate com.cod.mvc.view.View
 ```
 
 El mismo diagrama con los nombres de los métodos
 
 ```mermaid
 sequenceDiagram
-    participant View
+    participant com.cod.mvc.view.View
     box gray Controlador
-    participant Controller
+    participant com.cod.mvc.controller.Controller
     participant ObserverVelocidad
     end
-    participant Model
+    participant com.cod.mvc.model.Model
 
-    Controller->>Model: cambiarVelocidad()
-    activate Model
-    Model->>ObserverVelocidad: update()
-    deactivate Model
+    com.cod.mvc.controller.Controller->>com.cod.mvc.model.Model: cambiarVelocidad()
+    activate com.cod.mvc.model.Model
+    com.cod.mvc.model.Model->>ObserverVelocidad: update()
+    deactivate com.cod.mvc.model.Model
     activate ObserverVelocidad
-    ObserverVelocidad->>+View: muestraVelocidad
+    ObserverVelocidad->>+com.cod.mvc.view.View: muestraVelocidad
     deactivate ObserverVelocidad
-    activate View
-    View->>-View: sout
-    deactivate View
+    activate com.cod.mvc.view.View
+    com.cod.mvc.view.View->>-com.cod.mvc.view.View: sout
+    deactivate com.cod.mvc.view.View
 ```
 
 Si sumamos otro observador, entonces el `update()` será en paralelo (**par**)
@@ -101,42 +101,42 @@ a todos los Observadores
 
 ```mermaid
 sequenceDiagram
-    participant View
+    participant com.cod.mvc.view.View
     box gray Controlador
-    participant Controller
+    participant com.cod.mvc.controller.Controller
     participant ObserverVelocidad
     participant ObserverOtro
     end
-    participant Model
+    participant com.cod.mvc.model.Model
 
-    Controller->>Model: cambiarVelocidad()
-    activate Model
+    com.cod.mvc.controller.Controller->>com.cod.mvc.model.Model: cambiarVelocidad()
+    activate com.cod.mvc.model.Model
     par notificacion
-        Model->>ObserverVelocidad: update()
+        com.cod.mvc.model.Model->>ObserverVelocidad: update()
     and notificacion
-        Model->>ObserverOtro: update()
+        com.cod.mvc.model.Model->>ObserverOtro: update()
         end
-    deactivate Model
+    deactivate com.cod.mvc.model.Model
     activate ObserverVelocidad
     activate ObserverOtro
-    ObserverVelocidad->>+View: muestraVelocidad
+    ObserverVelocidad->>+com.cod.mvc.view.View: muestraVelocidad
     deactivate ObserverVelocidad
     ObserverOtro->>-ObserverOtro: sout
-    activate View
-    View->>-View: sout
-    deactivate View
+    activate com.cod.mvc.view.View
+    com.cod.mvc.view.View->>-com.cod.mvc.view.View: sout
+    deactivate com.cod.mvc.view.View
 ```
 
 ---
 ## Pasos para la configuración
 
-1. Model
-   * Extender `Observable` en `Model`
+1. com.cod.mvc.model.Model
+   * Extender `Observable` en `com.cod.mvc.model.Model`
    * En el método en donde ocurra el cambio:
      * setChenged()
      * notifyObserver(valor)
 2. Crear una clase que sea el observador, que implementa la interface `Observer`
     * definir el método `update()`
-3. Controller
+3. com.cod.mvc.controller.Controller
     * Instanciar el observer, definido en el punto anterior
     * Añadir este observer al observable con `addObserver()`

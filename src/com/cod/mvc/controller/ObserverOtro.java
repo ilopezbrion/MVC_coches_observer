@@ -1,3 +1,8 @@
+package com.cod.mvc.controller;
+
+import com.cod.mvc.controller.Observer;
+import com.cod.mvc.model.Coche;
+
 /**
  * Otro observador que se suscribe a los cambios de velocidad de un coche
  */

@@ -1,4 +1,7 @@
+package com.cod.mvc.controller;
 
+import com.cod.mvc.model.Coche;
+import com.cod.mvc.model.Model;
 
 public class Controller{
     static Model miModelo;
@@ -30,8 +33,8 @@ public class Controller{
         miModelo.cambiarVelocidad("HYU 4567", 100);
 
         // (ya no es necesario, lo hace el observador)
-        // recoje la velocidad y la muestra (tarea de la View)
-        // boolean hecho = View.muestraVelocidad("SBC 1234", Model.getVelocidad("SBC 1234"));
+        // recoje la velocidad y la muestra (tarea de la com.cod.mvc.view.View)
+        // boolean hecho = com.cod.mvc.view.View.muestraVelocidad("SBC 1234", com.cod.mvc.model.Model.getVelocidad("SBC 1234"));
         // System.out.println(hecho);
     }
 

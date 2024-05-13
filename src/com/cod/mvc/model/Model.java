@@ -1,14 +1,18 @@
+package com.cod.mvc.model;
+
+import com.cod.mvc.controller.Observer;
+
 import java.util.ArrayList;
-import java.util.List;
+
 
 /**
- * Vamos a usar la interface Observable en el Model
+ * Vamos a usar la interface Observable en el com.cod.mvc.model.Model
  */
-public class Model implements Observable{
+public class Model implements Observable {
     static ArrayList<Coche> parking = new ArrayList<>();
 
     // para los observadores
-    private final List<Observer> observers = new ArrayList<>();
+    private static final ArrayList<Observer> observers = new ArrayList<Observer>();
 
     @Override
     public void addObserver(Observer observer) {

@@ -18,8 +18,9 @@ public class View {
      */
     public static boolean mostrarVelocidad(String matricula, Integer v){
         String mensaje = "Coche " + matricula + " velocidad: " + v + "km/h";
-        System.out.println(mensaje);
         Dialog.mostrarMensaje(mensaje);
+        // debug
+        System.out.println("[View] " + mensaje);
         return true;
     }
 

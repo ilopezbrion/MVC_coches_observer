@@ -18,4 +18,18 @@ public class Controller {
 
         // TODO mandar mensaje de error si no fue posible crear el coche
     }
+
+    /**
+     * Cambia velocidad segun matricula
+     * @param matricula del coche a cambiar velocidad
+     * @param velocidad nueva del coche
+     */
+    public static void cambiarVelocidad(String matricula, Integer velocidad){
+        Integer v_aux = Model.cambiarVelocidad(matricula, velocidad);
+
+        // muestra la velocidad del coche creado
+        if (v_aux != null) View.mostrarVelocidad(matricula, v_aux);
+
+        // TODO mandar mensaje de error si no fue posible cambiar la velocidad
+    }
 }

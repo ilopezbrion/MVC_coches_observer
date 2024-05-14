@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -32,10 +33,20 @@ public class IU {
      * Lo llamaremos en el constructor de la vista
      */
     public static void crearVentana(){
-            JFrame jframe = new JFrame("App MVC");
-            jframe.setContentPane(new IU().panel);
-            jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            jframe.pack();
-            jframe.setVisible(true);
+        JFrame jframe = new JFrame("App MVC");
+        JPanel mainPanel = new JPanel(new BorderLayout());
+        IU iu = new IU();
+        Botonera botonera = new Botonera();
+
+        // agragamos los paneles al panel principal
+        mainPanel.add(iu.panel, BorderLayout.NORTH);
+        mainPanel.add(botonera.panel, BorderLayout.SOUTH);
+
+        // Configuramos el JFrame
+        jframe.setContentPane(mainPanel);
+        jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        jframe.setLocation(500, 500);
+        jframe.pack();
+        jframe.setVisible(true);
         }
 }

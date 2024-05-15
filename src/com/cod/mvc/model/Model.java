@@ -1,3 +1,5 @@
+package com.cod.mvc.model;
+
 import java.util.ArrayList;
 
 /**

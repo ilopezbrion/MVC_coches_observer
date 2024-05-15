@@ -1,3 +1,7 @@
+package com.cod.mvc;
+
+import com.cod.mvc.view.View;
+
 public class App {
     /**
      * Este es el punto inicial de nuestra aplicación
@@ -8,6 +12,6 @@ public class App {
         // inicializamos la vista
         View.crearVentana();
         // debug
-        System.out.println("fin del main");
+        System.out.println("[App] fin del main");
     }
 }

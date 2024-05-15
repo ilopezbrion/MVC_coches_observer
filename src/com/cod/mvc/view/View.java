@@ -1,3 +1,5 @@
+package com.cod.mvc.view;
+
 import javax.swing.*;
 
 /**

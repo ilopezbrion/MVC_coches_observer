@@ -1,3 +1,9 @@
+package com.cod.mvc.controller;
+
+import com.cod.mvc.model.Coche;
+import com.cod.mvc.model.Model;
+import com.cod.mvc.view.View;
+
 /**
  * Lógica de la aplicación
  * No instanciamos la vista ni el modelo

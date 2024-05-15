@@ -1,3 +1,7 @@
+package com.cod.mvc.view;
+
+import com.cod.mvc.controller.Controller;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -21,7 +25,8 @@ public class IU {
         crearCoche.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("creando coche");
+                // debug
+                System.out.println("[IU Listener] creando coche");
                 // le decimos al controlador que cree un coche
                 Controller.crearCoche(modelo.getText(), matricula.getText());
             }

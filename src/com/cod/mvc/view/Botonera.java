@@ -1,3 +1,7 @@
+package com.cod.mvc.view;
+
+import com.cod.mvc.controller.Controller;
+
 import javax.swing.*;
 
 public class Botonera {
@@ -19,7 +23,7 @@ public class Botonera {
 
         button_cambiar.addActionListener(e -> {
             // debug
-            System.out.println("[Listener] cambiando velocidad");
+            System.out.println("[Botonera Listener] cambiando velocidad");
             // le decimos al controlador que cambie la velocidad segun matricula
             Controller.cambiarVelocidad(text_matricula.getText(), Integer.valueOf(text_cambiar.getText()));
         });

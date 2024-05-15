@@ -28,17 +28,20 @@ classDiagram
         Integer: velocidad
     }
       class Controller {
-            ObserverVelocidad: observoVelocidad
-            ObserverLimite: observoLimite
-            +cambiarVelocidad(String, Integer)
-            +getVelocidad(String)
+          -Model: miModel
+          ObserverVelocidad: observoVelocidad
+          ObserverLimite: observoLimite
+          +cambiarVelocidad(String, Integer)
+          +crearCoche(String,String)
       }
       class Model {
           ArrayList~Coche~: parking
+          ArrayList~Observer~: observers
           +crearCoche(String, String, String)
           +getCoche(String)
           +cambiarVelocidad(String, Integer)
           +getVelocidad(String)
+          +notifyObservers(Coche coche)
       }
       class ObserverVelocidad { +update(Coche coche) }
       class ObserverLimite { +update(Coche coche) }

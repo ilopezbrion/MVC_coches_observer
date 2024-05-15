@@ -34,4 +34,6 @@ public class Botonera {
     public static JPanel crearBotonera() {
         return new Botonera().panel;
     }
+
+
 }

@@ -32,15 +32,15 @@ public class IU {
      * Inicializa la Interfaz del Usuario
      * Lo llamaremos en el constructor de la vista
      */
-    public static void crearVentana(){
+    public static void crearVentana(JPanel botonera) {
         JFrame jframe = new JFrame("App MVC");
         JPanel mainPanel = new JPanel(new BorderLayout());
         IU iu = new IU();
-        Botonera botonera = new Botonera();
+
 
         // agragamos los paneles al panel principal
         mainPanel.add(iu.panel, BorderLayout.NORTH);
-        mainPanel.add(botonera.panel, BorderLayout.SOUTH);
+        mainPanel.add(botonera, BorderLayout.SOUTH);
 
         // Configuramos el JFrame
         jframe.setContentPane(mainPanel);

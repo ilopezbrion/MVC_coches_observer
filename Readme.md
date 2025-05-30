@@ -1,11 +1,12 @@
 # Arquitectura MVC con Observer
 
-En esta rama utilizaremos el patrón Observer
+En esta rama utilizaremos una versión muy simplificada del patrón Observer
 
 Los cambios de la velocidad que se hagan en el model
-serán observados por el Controller
 
-Para notificar a los observadores:
+serán observados por una clase `ObserverLimite`
+
+Esta clase seerá la encargada de controlar el exceso de velocidad
 
 * Notificamos a los observadores `notifyObservers(valor)`
 
@@ -16,43 +17,27 @@ Para notificar a los observadores:
 
 ```mermaid
 classDiagram
-    class Observer {
-        +update(Coche coche)
-    }
-    class Observable {
-        notifyObserver(Coche coche)
-    }
         class Coche {
         String: matricula
         String: modelo
         Integer: velocidad
     }
       class Controller {
-          -Model: miModel
-          ObserverVelocidad: observoVelocidad
-          ObserverLimite: observoLimite
           +cambiarVelocidad(String, Integer)
           +crearCoche(String,String)
       }
       class Model {
           ArrayList~Coche~: parking
-          ArrayList~Observer~: observers
           +crearCoche(String, String, String)
           +getCoche(String)
           +cambiarVelocidad(String, Integer)
           +getVelocidad(String)
           +notifyObservers(Coche coche)
       }
-      class ObserverVelocidad { +update(Coche coche) }
       class ObserverLimite { +update(Coche coche) }
-      Controller "1" *-- "1" ObserverVelocidad: association
       Controller "1" *-- "1" ObserverLimite: association
       Controller "1" *-- "1" Model : association
       Model "1" *-- "1..n" Coche : association
-      Observable <|.. Model : implements
-      Observer <|.. ObserverVelocidad : implements
-      Observer <|.. ObserverLimite : implements
-      
 ```
 
 ---
@@ -61,80 +46,26 @@ classDiagram
 
 Que ocurre cuando se cambia la velocidad
 
+Observador (que vigile el limite de velocidad), entonces se lanza el `update()` 
 
 ```mermaid
 sequenceDiagram
     participant View
     box gray Controlador
     participant Controller
-    participant ObservoVelocidad
-    end
-    participant Model
-    
-    Controller->>Model: cambia la velociad, porfa
-    activate Model
-    Model->>ObservoVelocidad: Notificacion de cambio de velocidad
-    deactivate Model
-    activate ObservoVelocidad
-    ObservoVelocidad->>+View: Muestra la velocidad, porfa
-    deactivate ObservoVelocidad
-    activate View
-    View->>-View: Mostrando velocidad
-    deactivate View
-```
-
-El mismo diagrama con los nombres de los métodos
-
-```mermaid
-sequenceDiagram
-    participant View
-    box gray Controlador
-    participant Controller
-    participant observoVelocidad
-    end
-    participant Model
-
-    Controller->>Model: cambiarVelocidad()
-    activate Model
-    Model->>observoVelocidad: update()
-    deactivate Model
-    activate observoVelocidad
-    observoVelocidad->>+View: muestraVelocidad
-    deactivate observoVelocidad
-    activate View
-    View->>-View: sout
-    deactivate View
-```
-
-Si sumamos otro observador (que vigile el limite de velocidad), entonces el `update()` será en paralelo (**par**)
-
-a todos los Observadores
-
-```mermaid
-sequenceDiagram
-    participant View
-    box gray Controlador
-    participant Controller
-    participant observoVelocidad
     participant observoLimite
     end
     participant Model
 
     Controller->>Model: cambiarVelocidad()
     activate Model
-    par notificacion
-        Model->>observoVelocidad: update()
-    and notificacion
-        Model->>observoLimite: update()
-        end
+    Model->>observoLimite: update()
     deactivate Model
-    activate observoVelocidad
     activate observoLimite
-    observoVelocidad->>+View: muestraVelocidad
-    deactivate observoVelocidad
-    observoLimite->>-observoLimite: sout
+    observoLimite->>View: mostrarExcesoVelocidad()
+    deactivate observoLimite
     activate View
-    View->>-View: sout
+    View->>View: sout()
     deactivate View
 ```
 
@@ -142,11 +73,9 @@ sequenceDiagram
 ## Pasos para la configuración
 
 1. Model
-   * Implementar `Observable` en `Model`
-   * En el método en donde ocurra el cambio, notificamos a los observadores con:
-     * notifyObserver(valor)
-2. Crear una clase para cada observador, que implementa la interface `Observer`
+   * En el método donde ocurre un cambio de velocidad, añadir la llamada a `notifyObservers(coche)`
+2. Desarrollar el metodo `notifyObservers(coche)` en el modelo
+    * Este método recorrerá la lista de observadores y llamará al método `update()` de cada uno de ellos
+3. Crear una clase para cada observador, que implementa
     * definir el método `update()`
-3. Controller
-    * Instanciar el observer, definido en el punto anterior
-    * Añadir este observer al observable con `addObserver()` en el `Model`
+

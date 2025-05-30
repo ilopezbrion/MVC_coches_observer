@@ -17,27 +17,34 @@ Esta clase seerá la encargada de controlar el exceso de velocidad
 
 ```mermaid
 classDiagram
-        class Coche {
-        String: matricula
-        String: modelo
-        Integer: velocidad
-    }
+   class View {
+      +muestraVelocidad()
+      +alarmaInfraccion()
+   }
+    
       class Controller {
           +cambiarVelocidad(String, Integer)
           +crearCoche(String,String)
       }
-      class Model {
-          ArrayList~Coche~: parking
-          +crearCoche(String, String, String)
-          +getCoche(String)
-          +cambiarVelocidad(String, Integer)
-          +getVelocidad(String)
-          +notifyObservers(Coche coche)
-      }
+ 
+   
       class ObserverLimite { +update(Coche coche) }
-      Controller "1" *-- "1" ObserverLimite: association
-      Controller "1" *-- "1" Model : association
-      Model "1" *-- "1..n" Coche : association
+   class Model {
+      ArrayList~Coche~: parking
+      +crearCoche(String, String, String)
+      +getCoche(String)
+      +cambiarVelocidad(String, Integer)
+      +getVelocidad(String)
+      +notifyObservers(Coche coche)
+   }
+   class Coche {
+      String: matricula
+      String: modelo
+      Integer: velocidad
+   }
+   
+   Model --* Coche
+
 ```
 
 ---
@@ -62,7 +69,7 @@ sequenceDiagram
     Model->>observoLimite: update()
     deactivate Model
     activate observoLimite
-    observoLimite->>View: mostrarExcesoVelocidad()
+    observoLimite->>View: alarmaInfraccion()
     deactivate observoLimite
     activate View
     View->>View: sout()

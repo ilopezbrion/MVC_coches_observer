@@ -79,10 +79,9 @@ sequenceDiagram
 ---
 ## Pasos para la configuración
 
-1. Model
-   * En el método donde ocurre un cambio de velocidad, añadir la llamada a `notifyObservers(coche)`
-2. Desarrollar el metodo `notifyObservers(coche)` en el modelo
-    * Este método recorrerá la lista de observadores y llamará al método `update()` de cada uno de ellos
-3. Crear una clase para cada observador, que implementa
-    * definir el método `update()`
-
+1. Crear una clase para cada observador
+    * definir el método `update()` - ¿Qué hace este observador, que necesita?
+2. Implementar el método `notifyObservers()` en el modelo
+    * llama a los `update` de los observadores
+3. En el modelo, en cada c método que hay cambios:
+    * llamar a `notifyObservers()`

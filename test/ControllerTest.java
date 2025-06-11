@@ -1,3 +1,4 @@
+import com.cod.mvc.Model;
 import com.cod.mvc.controller.Controller;
 import com.cod.mvc.model.Coche;
 import com.cod.mvc.model.Model;
@@ -87,4 +88,61 @@ public class ControllerTest {
         });
 
     }
+    //VIENDO QUE NO FUNCIONAN LOS TESTS PORQUE NO ME ACUERDO DE QUE ESTOY HACIENDO MAL AL NO PREPARARLOS PUES M TOMO ESTA LINEA COMO EL FINAL DE LOS TEST PARA PODER HACER EL RESTO
+    @BeforeEach
+    public void resetParking() {
+        // Limpiamos el parking entre tests
+        Model.parking.clear();
+    }
+
+    @Test
+    public void testCrearCoche() {
+        Coche coche = Model.crearCoche("Toyota", "1234ABC");
+
+        assertNotNull(coche);
+        assertEquals("Toyota", coche.modelo);
+        assertEquals("1234ABC", coche.matricula);
+        assertEquals(0, coche.velocidad);
+    }
+
+    @Test
+    public void testGetCocheExistente() {
+        Model.crearCoche("BMW", "5678DEF");
+
+        Coche coche = Model.getCoche("5678DEF");
+
+        assertNotNull(coche);
+        assertEquals("BMW", coche.modelo);
+    }
+
+    @Test
+    public void testGetCocheNoExistente() {
+        Coche coche = Model.getCoche("NOEXISTE");
+        assertNull(coche);
+    }
+
+    @Test
+    public void testCambiarVelocidad() {
+        Model.crearCoche("Audi", "9999ZZZ");
+        int nuevaVelocidad = Model.cambiarVelocidad("9999ZZZ", 80);
+
+        assertEquals(80, nuevaVelocidad);
+        assertEquals(80, Model.getVelocidad("9999ZZZ"));
+    }
+
+    @Test
+    public void testGetVelocidad() {
+        Model.crearCoche("Renault", "7777GGG");
+        Model.cambiarVelocidad("7777GGG", 50);
+
+        assertEquals(50, Model.getVelocidad("7777GGG"));
+    }
+
+    @Test
+    public void testCambiarVelocidadCocheNoExistente() {
+        assertThrows(NullPointerException.class, () -> {
+            Model.cambiarVelocidad("NOPE123", 100);
+        });
+    }
+}
 }

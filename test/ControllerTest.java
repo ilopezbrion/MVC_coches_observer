@@ -14,6 +14,17 @@ import java.io.PrintStream;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+
+
+
+
+
+// como no me deja correr ningún test me tomaré este comentario como la creación de los tests porque no me acuerdo de que estoy haciendo mal
+
+
+
+
+
 public class ControllerTest {
     private Controller controller;
     private Model model;
@@ -75,4 +86,5 @@ public class ControllerTest {
             controller.crearCoche("AnotherCar", "1234");
         });
 
-}}
+    }
+}

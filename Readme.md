@@ -1,71 +1,87 @@
-# Arquitectura MVC
+# Arquitectura MVC con Observer
 
-Aplicación que trabaja con objetos coches, modifica la velocidad y la muestra
+En esta rama utilizaremos una versión muy simplificada del patrón Observer
+
+Los cambios de la velocidad que se hagan en el model
+
+serán observados por una clase `ObserverLimite`
+
+Esta clase seerá la encargada de controlar el exceso de velocidad
+
+* Notificamos a los observadores `notifyObservers(valor)`
+
+* se *dispara* en todos los observadores el método `update()`
 
 ---
 ## Diagrama de clases:
 
 ```mermaid
 classDiagram
-    class Coche {
-        String: matricula
-        String: modelo
-        Integer: velocidad
-    }
-      class Controller{
-          +main()
-      }
-      class View {+muestraVelocidad(String, Integer)}
-      class Model {
-          ArrayList~Coche~: parking
-          +crearCoche(String, String, String)
-          +getCoche(String)
+   class View {
+      +muestraVelocidad()
+      +alarmaInfraccion()
+   }
+    
+      class Controller {
           +cambiarVelocidad(String, Integer)
-          +getVelocidad(String)
+          +crearCoche(String,String)
       }
-    Controller "1" *-- "1" Model : association
-    Controller "1" *-- "1" View : association
-    Model "1" *-- "1..n" Coche : association
-      
+ 
+   
+      class ObserverLimite { +update(Coche coche) }
+   class Model {
+      ArrayList~Coche~: parking
+      +crearCoche(String, String, String)
+      +getCoche(String)
+      +cambiarVelocidad(String, Integer)
+      +getVelocidad(String)
+      +notifyObservers(Coche coche)
+   }
+   class Coche {
+      String: matricula
+      String: modelo
+      Integer: velocidad
+   }
+   
+   Model --* Coche
+
 ```
 
 ---
 
 ## Diagrama de Secuencia
 
-Ejemplo básico del procedimiento, sin utilizar los nombres de los métodos
+Que ocurre cuando se cambia la velocidad
 
-
-```mermaid
-sequenceDiagram
-    participant Model
-    participant Controller
-    participant View
-    Controller->>Model: Puedes crear un coche?
-    activate Model
-    Model-->>Controller: Creado!
-    deactivate Model
-    Controller->>+View: Muestra la velocidad, porfa
-    activate View
-    View->>-View: Mostrando velocidad
-    View-->>Controller: Listo!
-    deactivate View
-```
-
-El mismo diagrama con los nombres de los métodos
+Observador (que vigile el limite de velocidad), entonces se lanza el `update()` 
 
 ```mermaid
 sequenceDiagram
-    participant Model
-    participant Controller
     participant View
-    Controller->>Model: crearCoche("Mercedes", "BXK 1234")
+    box gray Controlador
+    participant Controller
+    participant observoLimite
+    end
+    participant Model
+
+    Controller->>Model: cambiarVelocidad()
     activate Model
-    Model-->>Controller: Coche
+    Model->>observoLimite: update()
     deactivate Model
-    Controller->>+View: muestraVelocidad("BXK 1234", velocidad)
+    activate observoLimite
+    observoLimite->>View: alarmaInfraccion()
+    deactivate observoLimite
     activate View
-    View->>-View: System.out.println()
-    View-->>Controller: boolean
+    View->>View: sout()
     deactivate View
 ```
+
+---
+## Pasos para la configuración
+
+1. Crear una clase para cada observador
+    * definir el método `update()` - ¿Qué hace este observador, que necesita?
+2. Implementar el método `notifyObservers()` en el modelo
+    * llama a los `update` de los observadores
+3. En el modelo, en cada c método que hay cambios:
+    * llamar a `notifyObservers()`

@@ -1,7 +1,24 @@
+package com.cod.mvc;
+
 import java.util.ArrayList;
 
+
+/**
+ * El Model será el encargado de notificar a los observadores
+ */
 public class Model {
+    // array de coches
     static ArrayList<Coche> parking = new ArrayList<>();
+
+    /**
+     * Notifica a los observadores
+     * Se ejecutara el método update() de cada observador
+     * @param coche
+     */
+    public static void notifyObservers(Coche coche) {
+            ObserverLimite.update(coche);
+    }
+
 
     /**
      * Crea un coche y lo mete en el parking
@@ -32,24 +49,29 @@ public class Model {
     }
 
     /**
+     * Método que cambia la velocidad, por lo tanto
+     * tendrá que avisar al observador de limite del controlador que ha cambiado
      *
-     * @param matricula
-     * @param v nueva velocidad
-     * @return velocidad modificada
+     * @param matricula identificador del coche
+     * @param v         nueva velocidad
+     * @return
      */
     public static Integer cambiarVelocidad(String matricula, Integer v) {
         // busca el coche
         getCoche(matricula).velocidad = v;
-        // retorna la nueva velocidad
+
+        // lo notificamos a todos los observadores
+        notifyObservers(getCoche(matricula));
+
         return getCoche(matricula).velocidad;
     }
 
     /**
-     * Ddevuelve la velocidad segun la matricula
-     * @param matricula
-     * @return
+     * Devuelve la velocidad según la matrícula
+     * @param matricula identificador del coche
+     * @return velocidad del coche actual
      */
-    public static Integer getVelocidad(String matricula) {
+    public Integer getVelocidad(String matricula) {
         return getCoche(matricula).velocidad;
     }
 }

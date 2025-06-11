@@ -1,7 +1,9 @@
+package com.cod.mvc;
+
 public class Coche {
-    String matricula;
-    String modelo;
-    Integer velocidad;
+    public String matricula;
+    public String modelo;
+    public Integer velocidad;
 
     public Coche(String modelo, String matricula) {
         this.modelo = modelo;

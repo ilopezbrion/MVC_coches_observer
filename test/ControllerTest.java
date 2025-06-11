@@ -3,6 +3,10 @@ import com.cod.mvc.model.Coche;
 import com.cod.mvc.model.Model;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -57,7 +61,7 @@ public class ControllerTest {
 
     }
 
-    /*@Test
+    @Test
     public void doesNotChangeSpeedOfNonExistentCar() {
         assertThrows(IllegalArgumentException.class, () -> {
             controller.cambiarVelocidad("1234", 50);
@@ -70,6 +74,5 @@ public class ControllerTest {
         assertThrows(IllegalArgumentException.class, () -> {
             controller.crearCoche("AnotherCar", "1234");
         });
-    }
-    */
-}
+
+}}
